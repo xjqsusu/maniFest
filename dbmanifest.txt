@@ -1,0 +1,28 @@
+Dear SCM,
+Could you please manifest the following database(s) for IFE DB-BY B763 283PAX, IFE DB-BY B763 328PAX, IFE DB-BY B763 (291), 
+
+ATP number is 789740
+
+
+Part number information below.
+
+
+ECSRR:
+
+IFE DB-BY B763 283PAX
+Item Name: 44 IFE DB-BY B763 283PAX<br>Profile Name: Database Thomson 767-300 (283 Pax)<br>P/N: RD-AK31BY013<br>MEI PN: MEI48-1044-9001<br>Version: 17.00.00.7<br>Reporting Name: 44 IFE DB-BY B763 283PAX<br>Folder Name: db10449<br>NOTE: Folder name shall be followed with an underscore and the version listed in this email. (i.e. foldername_version)<br>Source PN:<br>11/15/17 - Update to support latest SIT. ATP 789740 mi<br>Link: http://scmdb/scmrelease/145375<br>
+
+
+ECSRR:
+
+IFE DB-BY B763 328PAX
+Item Name: 44 IFE DB-BY B763 328PAX<br>Profile Name: Database Thomson 767-300 328 PAX<br>P/N: RD-AK31BY111<br>MEI PN: MEI40-1045-0001<br>Version: 17.00.00.7<br>Reporting Name: 44 IFE DB-BY B763 328PAX<br>Folder Name: db10450<br>NOTE: Folder name shall be followed with an underscore and the version listed in this email. (i.e. foldername_version)<br>Source PN:<br>11/15/17 - Support SIT upgrade. ATP 789740 mi<br>Link: http://scmdb/scmrelease/145377<br>
+
+
+ECSRR:
+
+IFE DB-BY B763 (291)
+Item Name: 44 IFE DB-BY B763 (291)<br>Profile Name: Database Thomson 767-300 (291 Pax)<br>P/N: RD-AK31BY308<br>MEI PN: MEI42-1045-2001<br>Version: 10.00.00.7<br>Reporting Name: 44 IFE DB-BY B763 (291)<br>Folder Name: db10452<br>NOTE: Folder name shall be followed with an underscore and the version listed in this email. (i.e. foldername_version)<br>Source PN:<br>11/21/17 - P/N to Alan Pazirandeh. Support SIT upgrade. ATP 789740 mi<br>Link: http://scmdb/scmrelease/145469<br>
+
+
+Thanks,

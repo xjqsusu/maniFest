@@ -1,0 +1,21 @@
+Dear SCM,
+Could you please manifest following components below for CORE APP OPS-BY B763, CORE OPS-BY B763, INT CORE OPS-BY EFX, 
+
+ATP number is 789740
+SIT number is 1204019
+the rack scan is 
+
+
+Part number information below.
+
+CORE APP OPS-BY B763
+Item Name: 44 CORE APP OPS-BY B763<br>Profile Name: Core App Thomson (TUI) 767-300 eFX<br>P/N: RD-AL00VL001<br>MEI PN: MEI43-1514-3000<br>Version: 03.00.00.7<br>Reporting Name: 44 CORE APP OPS-BY B763<br>Folder Name: core_app_by_b763<br>NOTE: Folder name shall be followed with an underscore and the version listed in this email. (i.e. foldername_version)<br>Source PN:<br>11/14/17 - Build 82109. SIT upgrade. ATP 789740 mi<br>Link: http://scmdb/scmrelease/145355<br>
+
+CORE OPS-BY B763
+Item Name: 44 CORE OPS-BY B763<br>Profile Name: Core Thomson Airways 767-300<br>P/N: RD-AL00VP001<br>MEI PN: MEI44-1514-4000<br>Version: 03.00.00.7<br>Reporting Name: 44 CORE OPS-BY B763<br>Folder Name: core_by_b763<br>NOTE: Folder name shall be followed with an underscore and the version listed in this email. (i.e. foldername_version)<br>Source PN:<br>11/15/17 - SIT upgrade and conversion to reduced manifest. ATP 789740 mi<br>Link: http://scmdb/scmrelease/145371<br>
+
+INT CORE OPS-BY EFX
+Item Name: 44 INT CORE OPS-BY EFX<br>Profile Name: Interactive Core Thomson Airways eFX<br>P/N: RD-AL0106001<br>MEI PN: MEI44-1524-7000<br>Version: 03.00.00.7<br>Reporting Name: 44 INT CORE OPS-BY EFX<br>Folder Name: int_core_by_efx<br>NOTE: Folder name shall be followed with an underscore and the version listed in this email. (i.e. foldername_version)<br>Source PN:<br>1/17/18 - Conversion from legacy to Big 5 manifest format. ATP 789740 mi<br>Link: http://scmdb/scmrelease/147141<br>
+
+
+Thanks,

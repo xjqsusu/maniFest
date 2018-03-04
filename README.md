@@ -1,8 +1,11 @@
 # maniFest
 Automatic compose manifest email for ALST
 
-# Install-1.bat and Install-2.bat (for windows only)
+# For windows: Install-1.bat and Install-2.bat
 Install python2.7.14, install necessary modules and set up system environmnet in tartget system.
+
+# For mac:
+In terminal, go to foloder "beautifulsoup4-4.1.0", and run "python setup.py install" to add the webpage scraping module to your python.
 
 # mf3.py
 Source code that can be run in command line. Example, python mf3.py 82109.

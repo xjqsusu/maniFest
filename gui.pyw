@@ -227,10 +227,15 @@ def main(buildnumber):
 
 def main_gui():
     try:
-        main(e1.get())        
+        L1 = Label(master, text="working!")
+        L1.grid(row=3, column=1)
+        master.update_idletasks()
+        
+        main(e1.get())
+        L1.destroy()
     except Exception as e:
         tkMessageBox.showinfo("Error", str(e))
-
+        L1.destroy()
 def short_key(event):
     main_gui()
 
@@ -246,10 +251,11 @@ e1.focus_set()
 e1.grid(row=0, column=1)
 
 
-b1 = Button(master, text='Quit', command=master.quit)
-b1.grid(row=3, column=0, sticky=W, pady=4)
+##b1 = Button(master, text='Quit', command=master.quit)
+##b1.grid(row=3, column=0, sticky=W, pady=4)
 b2 = Button(master, text='Go', command=main_gui)
-b2.grid(row=3, column=1, sticky=W, pady=4)
+b2.grid(row=3, column=0, sticky=W, pady=4)
+
 master.bind('<Return>',short_key)
 
 mainloop( )

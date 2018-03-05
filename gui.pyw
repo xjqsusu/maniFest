@@ -1,5 +1,5 @@
 from Tkinter import *
-
+import tkMessageBox
 import urllib2
 import sys
 import os
@@ -227,21 +227,17 @@ def main(buildnumber):
 
 def main_gui():
     try:
-        main(e1.get())
+        main(e1.get())        
     except Exception as e:
-        print(str(e))
+        tkMessageBox.showinfo("Error", str(e))
 
-
-
-
-##def show_entry_fields():
-##   print getATP(e1.get())
 
 master = Tk()
 Label(master, text="Build#").grid(row=0)
 
 
 e1 = Entry(master)
+e1.focus_set()
 
 
 e1.grid(row=0, column=1)
@@ -251,4 +247,3 @@ Button(master, text='Quit', command=master.quit).grid(row=3, column=0, sticky=W,
 Button(master, text='Go', command=main_gui).grid(row=3, column=1, sticky=W, pady=4)
 
 mainloop( )
-

@@ -170,7 +170,7 @@ def getURL(buildno):
 def main(buildnumber):
 
     buildnumber = buildnumber.replace(' ','')
-    L1 = Label(master, text="getting build "+ buildnumber +"....")
+    
     L1.grid(row=3, column=1)
     master.update()
 ##    print '\ngetting build '+ buildnumber +'....'
@@ -185,9 +185,9 @@ def main(buildnumber):
 
     ##quote_page = 'http://docs.python-guide.org/en/latest/scenarios/scrape/'
     ##page = urllib2.urlopen(quote_page)
-    L1.destroy()
+    L1.grid_forget()
     master.update()
-    L2 = Label(master, text="getting manifest items...")
+    
     L2.grid(row=3, column=1)
     master.update()    
 
@@ -200,24 +200,24 @@ def main(buildnumber):
     ##for z in link:
 
     ##    link[i] = urllib2.urlopen(link[i])
-    L2.destroy()
+    L2.grid_forget()
     master.update()
-    L3 = Label(master, text="getting ATP#...")
+    
     L3.grid(row=3, column=1)
     master.update()  
 ##    print 'getting ATP#...'
     atp = getATP(buildinfo_s)
     buildinfo_s = urllib2.urlopen(bs)
-    L3.destroy()
+    L3.grid_forget()
     master.update()
-    L4 = Label(master, text="getting SIT#...")
+    
     L4.grid(row=3, column=1)
     master.update() 
 ##    print 'getting SIT#...'
     sit = getSIT(buildinfo_s)
-    L4.destroy()
+    L4.grid_forget()
     master.update()
-    L5 = Label(master, text="getting PN...")
+    
     L5.grid(row=3, column=1)
     master.update() 
 ##    print 'getting PN...'
@@ -230,9 +230,9 @@ def main(buildnumber):
     for y in d_link:
         tmp_d = urllib2.urlopen(y)
         mani_d.append(getPN(tmp_d))
-    L5.destroy()
+    L5.grid_forget()
     master.update()
-    L6 = Label(master, text="composing email...")
+    
     L6.grid(row=3, column=1)
     master.update() 
 ##    print 'composing email...'
@@ -318,7 +318,7 @@ def main(buildnumber):
         cmd1 = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"Database manifest request for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_d)
         os.system(cmd)
         os.system(cmd1)
-    L6.destroy()
+    L6.grid_forget()
     master.update()
 def main_gui():
     try:
@@ -331,6 +331,12 @@ def main_gui():
     except Exception as e:
         tkMessageBox.showinfo("Error", str(e))
 ##        L1.destroy()
+        L1.destroy()
+        L2.destroy()
+        L3.destroy()
+        L4.destroy()
+        L5.destroy()
+        L6.destroy()
 def short_key(event):
     main_gui()
 
@@ -338,6 +344,12 @@ def short_key(event):
 master = Tk()
 Label(master, text="Build#").grid(row=0)
 
+L1 = Label(master, text="getting build...")
+L2 = Label(master, text="getting manifest items...")
+L3 = Label(master, text="getting ATP#...")
+L4 = Label(master, text="getting SIT#...")
+L5 = Label(master, text="getting PN...")
+L6 = Label(master, text="composing email...")
 
 e1 = Entry(master)
 e1.focus_set()

@@ -190,7 +190,7 @@ def main(buildnumber):
     L2.grid(row=3, column=1)
     master.update_idletasks()    
 
-    print 'getting manifest items...'
+##    print 'getting manifest items...'
     name,link,d_name,d_link,title = getList(buildlist)
     ##print name, link
     title = title[4:]
@@ -200,12 +200,23 @@ def main(buildnumber):
 
     ##    link[i] = urllib2.urlopen(link[i])
     L2.destroy()
-    print 'getting ATP#...'
+    L3 = Label(master, text="getting ATP#...")
+    L3.grid(row=3, column=1)
+    master.update_idletasks()  
+##    print 'getting ATP#...'
     atp = getATP(buildinfo_s)
     buildinfo_s = urllib2.urlopen(bs)
-    print 'getting SIT#...'
+    L3.destroy()
+    L4 = Label(master, text="getting SIT#...")
+    L4.grid(row=3, column=1)
+    master.update_idletasks() 
+##    print 'getting SIT#...'
     sit = getSIT(buildinfo_s)
-    print 'getting PN...'
+    L4.destroy()
+    L5 = Label(master, text="getting PN...")
+    L5.grid(row=3, column=1)
+    master.update_idletasks() 
+##    print 'getting PN...'
     mani = []
     for x in link:
         tmp = urllib2.urlopen(x)
@@ -215,7 +226,11 @@ def main(buildnumber):
     for y in d_link:
         tmp_d = urllib2.urlopen(y)
         mani_d.append(getPN(tmp_d))
-    print 'composing email...'
+    L5.destroy()
+    L6 = Label(master, text="composing email...")
+    L6.grid(row=3, column=1)
+    master.update_idletasks() 
+##    print 'composing email...'
     ##compose e-mail
     f = open('manifest.txt','w')
     f.write('Dear SCM,\nCould you please manifest following components below for ')
@@ -266,7 +281,7 @@ def main(buildnumber):
     email_d = email_d + "<br>Thanks,<br>" 
     f.close()
     
-    print 'successful!'
+##    print 'successful!'
 
     ##print email
     if 'Win' in platform.system():
@@ -298,7 +313,7 @@ def main(buildnumber):
         cmd1 = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"Database manifest request for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_d)
         os.system(cmd)
         os.system(cmd1)
-
+    L6.destroy()
 def main_gui():
     try:
 ##        L1 = Label(master, text="working!")

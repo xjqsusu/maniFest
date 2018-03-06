@@ -172,7 +172,7 @@ def main(buildnumber):
     buildnumber = buildnumber.replace(' ','')
     L1 = Label(master, text="getting build "+ buildnumber +"....")
     L1.grid(row=3, column=1)
-    master.update_idletasks()
+    master.update()
 ##    print '\ngetting build '+ buildnumber +'....'
     
     bi,bl,bs = getURL(buildnumber)
@@ -186,10 +186,10 @@ def main(buildnumber):
     ##quote_page = 'http://docs.python-guide.org/en/latest/scenarios/scrape/'
     ##page = urllib2.urlopen(quote_page)
     L1.destroy()
-    master.update_idletasks()
+    master.update()
     L2 = Label(master, text="getting manifest items...")
     L2.grid(row=3, column=1)
-    master.update_idletasks()    
+    master.update()    
 
 ##    print 'getting manifest items...'
     name,link,d_name,d_link,title = getList(buildlist)
@@ -201,25 +201,25 @@ def main(buildnumber):
 
     ##    link[i] = urllib2.urlopen(link[i])
     L2.destroy()
-    master.update_idletasks()
+    master.update()
     L3 = Label(master, text="getting ATP#...")
     L3.grid(row=3, column=1)
-    master.update_idletasks()  
+    master.update()  
 ##    print 'getting ATP#...'
     atp = getATP(buildinfo_s)
     buildinfo_s = urllib2.urlopen(bs)
     L3.destroy()
-    master.update_idletasks()
+    master.update()
     L4 = Label(master, text="getting SIT#...")
     L4.grid(row=3, column=1)
-    master.update_idletasks() 
+    master.update() 
 ##    print 'getting SIT#...'
     sit = getSIT(buildinfo_s)
     L4.destroy()
-    master.update_idletasks()
+    master.update()
     L5 = Label(master, text="getting PN...")
     L5.grid(row=3, column=1)
-    master.update_idletasks() 
+    master.update() 
 ##    print 'getting PN...'
     mani = []
     for x in link:
@@ -231,10 +231,10 @@ def main(buildnumber):
         tmp_d = urllib2.urlopen(y)
         mani_d.append(getPN(tmp_d))
     L5.destroy()
-    master.update_idletasks()
+    master.update()
     L6 = Label(master, text="composing email...")
     L6.grid(row=3, column=1)
-    master.update_idletasks() 
+    master.update() 
 ##    print 'composing email...'
     ##compose e-mail
     f = open('manifest.txt','w')
@@ -319,7 +319,7 @@ def main(buildnumber):
         os.system(cmd)
         os.system(cmd1)
     L6.destroy()
-    master.update_idletasks()
+    master.update()
 def main_gui():
     try:
 ##        L1 = Label(master, text="working!")

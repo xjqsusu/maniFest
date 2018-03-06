@@ -170,7 +170,10 @@ def getURL(buildno):
 def main(buildnumber):
 
     buildnumber = buildnumber.replace(' ','')
-    print '\ngetting build '+ buildnumber +'....'
+    L1 = Label(master, text="getting build "+ buildnumber +"....")
+    L1.grid(row=3, column=1)
+    master.update_idletasks()
+##    print '\ngetting build '+ buildnumber +'....'
     
     bi,bl,bs = getURL(buildnumber)
     buildlist = urllib2.urlopen(bl)##'buildlist.html'
@@ -182,6 +185,10 @@ def main(buildnumber):
 
     ##quote_page = 'http://docs.python-guide.org/en/latest/scenarios/scrape/'
     ##page = urllib2.urlopen(quote_page)
+    L1.destroy()
+    L2 = Label(master, text="getting manifest items...")
+    L2.grid(row=3, column=1)
+    master.update_idletasks()    
 
     print 'getting manifest items...'
     name,link,d_name,d_link,title = getList(buildlist)
@@ -192,6 +199,7 @@ def main(buildnumber):
     ##for z in link:
 
     ##    link[i] = urllib2.urlopen(link[i])
+    L2.destroy()
     print 'getting ATP#...'
     atp = getATP(buildinfo_s)
     buildinfo_s = urllib2.urlopen(bs)
@@ -293,15 +301,15 @@ def main(buildnumber):
 
 def main_gui():
     try:
-        L1 = Label(master, text="working!")
-        L1.grid(row=3, column=1)
+##        L1 = Label(master, text="working!")
+##        L1.grid(row=3, column=1)
         master.update_idletasks()
         
         main(e1.get())
-        L1.destroy()
+##        L1.destroy()
     except Exception as e:
         tkMessageBox.showinfo("Error", str(e))
-        L1.destroy()
+##        L1.destroy()
 def short_key(event):
     main_gui()
 

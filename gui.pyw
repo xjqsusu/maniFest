@@ -1,4 +1,9 @@
 from Tkinter import *
+
+import re, traceback
+import win32gui, win32con, win32com.client
+from time import sleep
+
 import tkMessageBox
 import urllib2
 import sys
@@ -6,8 +11,68 @@ import os
 from bs4 import BeautifulSoup
 import platform
 if 'Win' in platform.system():
-    import win32com.client
+##    import win32com.client
     from win32com.client import Dispatch, constants
+
+##set window focus
+class cWindow:
+    def __init__(self):
+        self._hwnd = None
+        self.shell = win32com.client.Dispatch("WScript.Shell")
+
+    def BringToTop(self):
+        win32gui.BringWindowToTop(self._hwnd)
+
+    def SetAsForegroundWindow(self):
+        self.shell.SendKeys('%')
+        win32gui.SetForegroundWindow(self._hwnd)
+
+    def Maximize(self):
+        win32gui.ShowWindow(self._hwnd, win32con.SW_MAXIMIZE)
+
+    def setActWin(self):
+        win32gui.SetActiveWindow(self._hwnd)
+
+    def _window_enum_callback(self, hwnd, wildcard):
+        '''Pass to win32gui.EnumWindows() to check all the opened windows'''
+        if re.match(wildcard, str(win32gui.GetWindowText(hwnd))) is not None:
+            self._hwnd = hwnd
+
+    def find_window_wildcard(self, wildcard):
+        self._hwnd = None
+        win32gui.EnumWindows(self._window_enum_callback, wildcard)
+
+    def kill_task_manager(self):
+        wildcard = 'Gestionnaire des t.+ches de Windows'
+        self.find_window_wildcard(wildcard)
+        if self._hwnd:
+            win32gui.PostMessage(self._hwnd, win32con.WM_CLOSE, 0, 0)
+            sleep(0.5)
+
+def wnd():
+    sleep(5)
+    try:
+        wildcard = ".*Database manifest request for.*"
+        cW = cWindow()
+        cW.kill_task_manager()
+        cW.find_window_wildcard(wildcard)
+        cW.BringToTop()
+        cW.Maximize()
+        cW.SetAsForegroundWindow()
+
+        wildcard1 = ".*Mega-manifest request for.*"
+        cW1 = cWindow()
+        cW1.kill_task_manager()
+        cW1.find_window_wildcard(wildcard1)
+        cW1.BringToTop()
+        cW1.Maximize()
+        cW1.SetAsForegroundWindow()
+
+    except:
+        f = open("log.txt", "w")
+        f.write(traceback.format_exc())
+        print(traceback.format_exc())
+
 
 
 ##get ATP#
@@ -219,6 +284,7 @@ def main(buildnumber):
         ##attachment1 = r"C:\Temp\example.pdf"
         ##newMail.Attachments.Add(Source=attachment1)
         newMail.display()
+        wnd()
     else:
         cmd = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"Mega-manifest request for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_html)
         cmd1 = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"Database manifest request for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_d)

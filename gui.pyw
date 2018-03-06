@@ -186,6 +186,7 @@ def main(buildnumber):
     ##quote_page = 'http://docs.python-guide.org/en/latest/scenarios/scrape/'
     ##page = urllib2.urlopen(quote_page)
     L1.destroy()
+    master.update_idletasks()
     L2 = Label(master, text="getting manifest items...")
     L2.grid(row=3, column=1)
     master.update_idletasks()    
@@ -200,6 +201,7 @@ def main(buildnumber):
 
     ##    link[i] = urllib2.urlopen(link[i])
     L2.destroy()
+    master.update_idletasks()
     L3 = Label(master, text="getting ATP#...")
     L3.grid(row=3, column=1)
     master.update_idletasks()  
@@ -207,12 +209,14 @@ def main(buildnumber):
     atp = getATP(buildinfo_s)
     buildinfo_s = urllib2.urlopen(bs)
     L3.destroy()
+    master.update_idletasks()
     L4 = Label(master, text="getting SIT#...")
     L4.grid(row=3, column=1)
     master.update_idletasks() 
 ##    print 'getting SIT#...'
     sit = getSIT(buildinfo_s)
     L4.destroy()
+    master.update_idletasks()
     L5 = Label(master, text="getting PN...")
     L5.grid(row=3, column=1)
     master.update_idletasks() 
@@ -227,6 +231,7 @@ def main(buildnumber):
         tmp_d = urllib2.urlopen(y)
         mani_d.append(getPN(tmp_d))
     L5.destroy()
+    master.update_idletasks()
     L6 = Label(master, text="composing email...")
     L6.grid(row=3, column=1)
     master.update_idletasks() 
@@ -314,6 +319,7 @@ def main(buildnumber):
         os.system(cmd)
         os.system(cmd1)
     L6.destroy()
+    master.update_idletasks()
 def main_gui():
     try:
 ##        L1 = Label(master, text="working!")

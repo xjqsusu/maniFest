@@ -1,5 +1,5 @@
 from Tkinter import *
-
+import tkMessageBox
 import urllib2
 import sys
 import os
@@ -147,7 +147,7 @@ def main(buildnumber):
     f = open('manifest.txt','w')
     f.write('Dear SCM,\nCould you please manifest following components below for ')
     email = 'Dear SCM,\nCould you please manifest following components below for '
-    email_html = "Dear, SCM,<br><br>Could you please manifest following components below for "
+    email_html = "Dear SCM,<br><br>Could you please manifest following components below for "
     for x in name:
         f.write(x+', ')
         email = email+x+', '
@@ -227,28 +227,35 @@ def main(buildnumber):
 
 def main_gui():
     try:
+        L1 = Label(master, text="working!")
+        L1.grid(row=3, column=1)
+        master.update_idletasks()
+        
         main(e1.get())
+        L1.destroy()
     except Exception as e:
-        print(str(e))
+        tkMessageBox.showinfo("Error", str(e))
+        L1.destroy()
+def short_key(event):
+    main_gui()
 
-
-
-
-##def show_entry_fields():
-##   print getATP(e1.get())
 
 master = Tk()
 Label(master, text="Build#").grid(row=0)
 
 
 e1 = Entry(master)
+e1.focus_set()
 
 
 e1.grid(row=0, column=1)
 
 
-Button(master, text='Quit', command=master.quit).grid(row=3, column=0, sticky=W, pady=4)
-Button(master, text='Go', command=main_gui).grid(row=3, column=1, sticky=W, pady=4)
+##b1 = Button(master, text='Quit', command=master.quit)
+##b1.grid(row=3, column=0, sticky=W, pady=4)
+b2 = Button(master, text='Go', command=main_gui)
+b2.grid(row=3, column=0, sticky=W, pady=4)
+
+master.bind('<Return>',short_key)
 
 mainloop( )
-

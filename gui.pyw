@@ -147,7 +147,7 @@ def main(buildnumber):
     f = open('manifest.txt','w')
     f.write('Dear SCM,\nCould you please manifest following components below for ')
     email = 'Dear SCM,\nCould you please manifest following components below for '
-    email_html = "Dear, SCM,<br><br>Could you please manifest following components below for "
+    email_html = "Dear SCM,<br><br>Could you please manifest following components below for "
     for x in name:
         f.write(x+', ')
         email = email+x+', '

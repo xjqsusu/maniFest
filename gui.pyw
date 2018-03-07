@@ -1,7 +1,7 @@
 from Tkinter import *
 
 import re, traceback
-import win32gui, win32con, win32com.client
+
 from time import sleep
 
 import tkMessageBox
@@ -13,6 +13,7 @@ import platform
 if 'Win' in platform.system():
 ##    import win32com.client
     from win32com.client import Dispatch, constants
+    import win32gui, win32con, win32com.client
 
 ##set window focus
 class cWindow:

@@ -330,7 +330,7 @@ def main_gui():
         main(e1.get())
 ##        L1.destroy()
     except Exception as e:
-        tkMessageBox.showinfo("Error", str(e))
+        
 ##        L1.destroy()
         L1.grid_forget()
         L2.grid_forget()
@@ -338,6 +338,7 @@ def main_gui():
         L4.grid_forget()
         L5.grid_forget()
         L6.grid_forget()
+        tkMessageBox.showinfo("Error", str(e))
         master.update()
 def short_key(event):
     main_gui()

@@ -1,7 +1,7 @@
 from Tkinter import *
 
 import re, traceback
-import win32gui, win32con, win32com.client
+
 from time import sleep
 
 import tkMessageBox
@@ -13,6 +13,7 @@ import platform
 if 'Win' in platform.system():
 ##    import win32com.client
     from win32com.client import Dispatch, constants
+    import win32gui, win32con, win32com.client
 
 ##set window focus
 class cWindow:
@@ -170,7 +171,10 @@ def getURL(buildno):
 def main(buildnumber):
 
     buildnumber = buildnumber.replace(' ','')
-    print '\ngetting build '+ buildnumber +'....'
+    
+    L1.grid(row=3, column=1)
+    master.update()
+##    print '\ngetting build '+ buildnumber +'....'
     
     bi,bl,bs = getURL(buildnumber)
     buildlist = urllib2.urlopen(bl)##'buildlist.html'
@@ -182,8 +186,13 @@ def main(buildnumber):
 
     ##quote_page = 'http://docs.python-guide.org/en/latest/scenarios/scrape/'
     ##page = urllib2.urlopen(quote_page)
+    L1.grid_forget()
+    master.update()
+    
+    L2.grid(row=3, column=1)
+    master.update()    
 
-    print 'getting manifest items...'
+##    print 'getting manifest items...'
     name,link,d_name,d_link,title = getList(buildlist)
     ##print name, link
     title = title[4:]
@@ -192,12 +201,27 @@ def main(buildnumber):
     ##for z in link:
 
     ##    link[i] = urllib2.urlopen(link[i])
-    print 'getting ATP#...'
+    L2.grid_forget()
+    master.update()
+    
+    L3.grid(row=3, column=1)
+    master.update()  
+##    print 'getting ATP#...'
     atp = getATP(buildinfo_s)
     buildinfo_s = urllib2.urlopen(bs)
-    print 'getting SIT#...'
+    L3.grid_forget()
+    master.update()
+    
+    L4.grid(row=3, column=1)
+    master.update() 
+##    print 'getting SIT#...'
     sit = getSIT(buildinfo_s)
-    print 'getting PN...'
+    L4.grid_forget()
+    master.update()
+    
+    L5.grid(row=3, column=1)
+    master.update() 
+##    print 'getting PN...'
     mani = []
     for x in link:
         tmp = urllib2.urlopen(x)
@@ -207,7 +231,12 @@ def main(buildnumber):
     for y in d_link:
         tmp_d = urllib2.urlopen(y)
         mani_d.append(getPN(tmp_d))
-    print 'composing email...'
+    L5.grid_forget()
+    master.update()
+    
+    L6.grid(row=3, column=1)
+    master.update() 
+##    print 'composing email...'
     ##compose e-mail
     f = open('manifest.txt','w')
     f.write('Dear SCM,\nCould you please manifest following components below for ')
@@ -258,7 +287,7 @@ def main(buildnumber):
     email_d = email_d + "<br>Thanks,<br>" 
     f.close()
     
-    print 'successful!'
+##    print 'successful!'
 
     ##print email
     if 'Win' in platform.system():
@@ -290,18 +319,27 @@ def main(buildnumber):
         cmd1 = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"Database manifest request for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_d)
         os.system(cmd)
         os.system(cmd1)
-
+    L6.grid_forget()
+    master.update()
 def main_gui():
     try:
-        L1 = Label(master, text="working!")
-        L1.grid(row=3, column=1)
+##        L1 = Label(master, text="working!")
+##        L1.grid(row=3, column=1)
         master.update_idletasks()
         
         main(e1.get())
-        L1.destroy()
+##        L1.destroy()
     except Exception as e:
+        
+##        L1.destroy()
+        L1.grid_forget()
+        L2.grid_forget()
+        L3.grid_forget()
+        L4.grid_forget()
+        L5.grid_forget()
+        L6.grid_forget()
         tkMessageBox.showinfo("Error", str(e))
-        L1.destroy()
+        master.update()
 def short_key(event):
     main_gui()
 
@@ -309,6 +347,12 @@ def short_key(event):
 master = Tk()
 Label(master, text="Build#").grid(row=0)
 
+L1 = Label(master, text="getting build...")
+L2 = Label(master, text="getting manifest items...")
+L3 = Label(master, text="getting ATP#...")
+L4 = Label(master, text="getting SIT#...")
+L5 = Label(master, text="getting PN...")
+L6 = Label(master, text="composing email...")
 
 e1 = Entry(master)
 e1.focus_set()

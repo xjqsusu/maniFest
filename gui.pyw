@@ -50,7 +50,7 @@ class cWindow:
             win32gui.PostMessage(self._hwnd, win32con.WM_CLOSE, 0, 0)
             sleep(0.5)
 
-def wnd():
+def wnd_d():
     sleep(5)
     try:
         wildcard = ".*Database manifest request for.*"
@@ -61,6 +61,15 @@ def wnd():
 ##        cW.Maximize()
         cW.SetAsForegroundWindow()
 
+
+    except:
+        f = open("log.txt", "w")
+        f.write(traceback.format_exc())
+        print(traceback.format_exc())
+
+def wnd_mani():
+    sleep(5)
+    try:
         wildcard1 = ".*Mega-manifest request for.*"
         cW1 = cWindow()
         cW1.kill_task_manager()
@@ -69,11 +78,11 @@ def wnd():
 ##        cW1.Maximize()
         cW1.SetAsForegroundWindow()
 
+
     except:
         f = open("log.txt", "w")
         f.write(traceback.format_exc())
         print(traceback.format_exc())
-
 
 
 ##get ATP#
@@ -313,9 +322,9 @@ def main(buildnumber):
     if 'Win' in platform.system():
         const=win32com.client.constants
         olMailItem = 0x0
-        flag_w = 0
+        
         if email_html:
-            flag_w = flag_w + 1
+            
             obj = win32com.client.Dispatch("Outlook.Application")
             newMail = obj.CreateItem(olMailItem)
             newMail.Subject = "Mega-manifest request for "+title
@@ -324,11 +333,12 @@ def main(buildnumber):
             newMail.HTMLBody = email_html
             newMail.To = "socal.scm.ManifestRequest@panasonic.aero"
             newMail.display()
+            wnd_mani()
 
 ##        const=win32com.client.constants
 ##        olMailItem = 0x0
         if email_d:
-            flag_w = flag_w + 1
+            
             obj = win32com.client.Dispatch("Outlook.Application")
             newMail = obj.CreateItem(olMailItem)
             newMail.Subject = "Database manifest request for "+title
@@ -338,8 +348,8 @@ def main(buildnumber):
             ##attachment1 = r"C:\Temp\example.pdf"
             ##newMail.Attachments.Add(Source=attachment1)
             newMail.display()
-        if flag_w>0:
-            wnd()
+            wnd_d()
+        
     else:
         if email_html:
             cmd = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"Mega-manifest request for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_html)

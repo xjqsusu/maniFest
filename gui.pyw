@@ -58,7 +58,7 @@ def wnd():
         cW.kill_task_manager()
         cW.find_window_wildcard(wildcard)
         cW.BringToTop()
-        cW.Maximize()
+##        cW.Maximize()
         cW.SetAsForegroundWindow()
 
         wildcard1 = ".*Mega-manifest request for.*"
@@ -66,7 +66,7 @@ def wnd():
         cW1.kill_task_manager()
         cW1.find_window_wildcard(wildcard1)
         cW1.BringToTop()
-        cW1.Maximize()
+##        cW1.Maximize()
         cW1.SetAsForegroundWindow()
 
     except:

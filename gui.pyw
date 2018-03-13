@@ -53,7 +53,7 @@ class cWindow:
 def wnd_d():
     sleep(5)
     try:
-        wildcard = ".*Database manifest request for.*"
+        wildcard = ".*DATABASE MANIFEST REQUEST for.*"
         cW = cWindow()
         cW.kill_task_manager()
         cW.find_window_wildcard(wildcard)
@@ -70,7 +70,7 @@ def wnd_d():
 def wnd_mani():
     sleep(5)
     try:
-        wildcard1 = ".*Mega-manifest request for.*"
+        wildcard1 = ".*MEGA-MANIFEST REQUEST for.*"
         cW1 = cWindow()
         cW1.kill_task_manager()
         cW1.find_window_wildcard(wildcard1)
@@ -315,7 +315,7 @@ def main(buildnumber):
         email_d = email_d + "<br>Thanks,<br>" 
     
 ##    print 'successful!'
-
+    title = title + " (ATP#"+ atp + " build#" + buildnumber +")"
     if result:
         title = title+" (Distributed: Not checked)"
     ##print email
@@ -327,7 +327,7 @@ def main(buildnumber):
             
             obj = win32com.client.Dispatch("Outlook.Application")
             newMail = obj.CreateItem(olMailItem)
-            newMail.Subject = "Mega-manifest request for "+title
+            newMail.Subject = "MEGA-MANIFEST REQUEST for "+title
             # newMail.Body = "I AM\nTHE BODY MESSAGE!"
 
             newMail.HTMLBody = email_html
@@ -341,7 +341,7 @@ def main(buildnumber):
             
             obj = win32com.client.Dispatch("Outlook.Application")
             newMail = obj.CreateItem(olMailItem)
-            newMail.Subject = "Database manifest request for "+title
+            newMail.Subject = "DATABASE MANIFEST REQUEST for "+title
 
             newMail.HTMLBody = email_d
             newMail.To = "socal.scm.ManifestRequest@panasonic.aero"
@@ -352,10 +352,10 @@ def main(buildnumber):
         
     else:
         if email_html:
-            cmd = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"Mega-manifest request for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_html)
+            cmd = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"MEGA-MANIFEST REQUEST for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_html)
             os.system(cmd)
         if email_d:
-            cmd1 = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"Database manifest request for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_d)
+            cmd1 = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"DATABASE MANIFEST REQUEST for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_d)
             os.system(cmd1)
     L6.grid_forget()
     master.update()

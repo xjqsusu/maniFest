@@ -385,6 +385,7 @@ def short_key(event):
 
 
 master = Tk()
+master.title("MyManifest")
 Label(master, text="Build#").grid(row=0)
 
 L1 = Label(master, text="getting build...")

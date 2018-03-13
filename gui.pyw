@@ -220,7 +220,7 @@ def main(buildnumber):
     result = ""
     if getDist(buildmemo)=='No':
         result = tkMessageBox.askquestion("Distributed not checked",\
-                                          "Distributed not checked, force manifest?",\
+                                          "The build has not been distributed, continue manifest?",\
                                           icon='warning')
         if result == 'no':return
     

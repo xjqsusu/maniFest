@@ -105,10 +105,11 @@ def getSIT(buildinfourl):
     for last_div in table_content:
         i=i+1
         if i>5:break
-    if last_div.div.p.a==None:
-        return "None"
-    for string in last_div.div.p.a.stripped_strings:
+##    if last_div.div.p.a==None:
+##        return "None"
+    for string in last_div.div.p.stripped_strings:
         s=s+string
+    if not s: s = "None"
     return s
 
 ##get P/N

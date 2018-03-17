@@ -109,7 +109,7 @@ def getSIT(buildinfourl):
 ##        return "None"
     for string in last_div.div.p.stripped_strings:
         s=s+string
-    if not s: s = "None"
+    if not s: s="None"
     return s
 
 ##get P/N
@@ -136,10 +136,18 @@ def getList(buildlist):
     panel_body = soup.find("div",{"class":"panel-body"})
     table_content = panel_body.find("div",{"class":"table-responsive"})
     item_to_mf = table_content.div.table.tbody.find_all("tr")
+
+    title_set =item_to_mf[0]
+    title_line = title_set.find_all("td")
+    title=""
+    for str in title_line[3].stripped_strings:
+        title=title+str
+    item_to_mf = item_to_mf[1:]
     name = []
     link = []
     for tr in item_to_mf:
         td = tr.find_all("td")
+        
         if len(td)<3:continue
         try:
             if "No" in td[7].string:continue
@@ -147,10 +155,9 @@ def getList(buildlist):
         for string in td[3].span.a.stripped_strings:
             name.append(string)
         link.append(td[3].span.a.get("href"))
-        
-    title = name[0]
-    name = name[1:]
-    link = link[1:]
+##    title = name[0]
+##    name = name[1:]
+##    link = link[1:]
     name1=[]
     link1=[]
     d_name1=[]
@@ -230,7 +237,6 @@ def main(buildnumber):
 
     print 'getting manifest items...'
     name,link,d_name,d_link,title = getList(buildlist)
-    print name, link ,d_name, d_link, title
     title = title[4:]
     ##open the manifestlink
 

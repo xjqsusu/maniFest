@@ -334,7 +334,7 @@ def main(buildnumber):
             
             obj = win32com.client.Dispatch("Outlook.Application")
             newMail = obj.CreateItem(olMailItem)
-            newMail.Subject = "MEGA-MANIFEST REQUEST for "+title
+            newMail.Subject = "MANIFEST REQUEST for "+title
             # newMail.Body = "I AM\nTHE BODY MESSAGE!"
 
             newMail.HTMLBody = email_html
@@ -359,7 +359,7 @@ def main(buildnumber):
         
     else:
         if email_html:
-            cmd = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"MEGA-MANIFEST REQUEST for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_html)
+            cmd = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"MANIFEST REQUEST for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_html)
             os.system(cmd)
         if email_d:
             cmd1 = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"DATABASE MANIFEST REQUEST for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_d)

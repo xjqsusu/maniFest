@@ -70,7 +70,7 @@ def wnd_d():
 def wnd_mani():
     sleep(5)
     try:
-        wildcard1 = ".*MEGA-MANIFEST REQUEST for.*"
+        wildcard1 = ".*MANIFEST REQUEST for.*"
         cW1 = cWindow()
         cW1.kill_task_manager()
         cW1.find_window_wildcard(wildcard1)

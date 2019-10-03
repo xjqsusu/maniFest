@@ -11,7 +11,16 @@ APP = ['gui.py']
 APP_NAME = "MyManifest"
 DATA_FILES = []
 OPTIONS = {
+    'argv_emulation': True,
     'iconfile': 'iconfinder__m_2560433.icns',
+    'plist': {
+        'CFBundleName': APP_NAME,
+        'CFBundleDisplayName': APP_NAME,
+        'CFBundleGetInfoString': "Requesting manifest",
+        'CFBundleVersion': "3.1",
+        'CFBundleShortVersionString': "3.1",
+        'NSHumanReadableCopyright': "Copyright @ 2019, Jack Xiao, All Rights Reserved"
+    }
 }
 
 setup(

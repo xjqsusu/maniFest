@@ -414,7 +414,7 @@ e1.grid(row=0, column=1)
 
 ##b1 = Button(master, text='Quit', command=master.quit)
 ##b1.grid(row=3, column=0, sticky=W, pady=4)
-b2 = Button(master, text='Go', command=main_gui)
+b2 = Button(master, fg='black', text='Go', command=main_gui)
 b2.grid(row=3, column=0, sticky=W, pady=4)
 
 master.bind('<Return>',short_key)

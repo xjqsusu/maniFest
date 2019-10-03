@@ -10,7 +10,19 @@ from setuptools import setup
 APP = ['gui.py']
 APP_NAME = "MyManifest"
 DATA_FILES = []
-OPTIONS = {}
+OPTIONS = {
+    'argv_emulation': True,
+    'iconfile': 'iconfinder__m_2560433.icns',
+    'plist': {
+        'CFBundleName': APP_NAME,
+        'CFBundleDisplayName': APP_NAME,
+        'CFBundleGetInfoString': "Making Sandwiches",
+        'CFBundleIdentifier': "com.metachris.osx.sandwich",
+        'CFBundleVersion': "3.1",
+        'CFBundleShortVersionString': "3.1",
+        'NSHumanReadableCopyright': u"Copyright © 2019, Jack Xiao, All Rights Reserved"
+    }
+}
 
 setup(
     app=APP,

@@ -20,7 +20,7 @@ OPTIONS = {
         'CFBundleIdentifier': "com.metachris.osx.sandwich",
         'CFBundleVersion': "3.1",
         'CFBundleShortVersionString': "3.1",
-        'NSHumanReadableCopyright': u"Copyright © 2019, Jack Xiao, All Rights Reserved"
+        'NSHumanReadableCopyright': "Copyright © 2019, Jack Xiao, All Rights Reserved"
     }
 }
 

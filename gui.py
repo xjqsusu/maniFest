@@ -164,9 +164,7 @@ def getList(buildlist):
     d_link1=[]
     for x in range(len(name)):
         if name[x].startswith("44"):
-            if "S/W" in name[x]:continue
-            if "GEN3" in name[x]:continue
-            if "IFE DB" in name[x]:
+            if "IFE DB" in nam[x]:
                 d_name1.append(name[x][3:])
                 d_link1.append("http://scmdb"+link[x])
                 continue
@@ -178,6 +176,8 @@ def getList(buildlist):
                 d_name1.append(name[x][3:])
                 d_link1.append("http://scmdb"+link[x])
                 continue
+            if "S/W" in name[x]:continue
+            if "GEN3" in name[x]:continue
             name1.append(name[x][3:])
             link1.append("http://scmdb"+link[x]) 
     return name1,link1,d_name1,d_link1,title  

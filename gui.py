@@ -1,5 +1,5 @@
 from Tkinter import *
-
+from get_database_PN import getDBPN
 import re, traceback
 
 from time import sleep
@@ -87,7 +87,7 @@ def wnd_mani():
 
 ##get ATP#
 def getATP(buildinfourl):
-    soup = BeautifulSoup(buildinfourl)
+    soup = BeautifulSoup(buildinfourl, 'html.parser')
     panel_body = soup.find("div",{"class":"panel-body"})
     table_content = panel_body.form.find_all("div",{"class":"form-group"})
     last_div = None
@@ -96,7 +96,7 @@ def getATP(buildinfourl):
 
 ##get SIT#
 def getSIT(buildinfourl):
-    soup = BeautifulSoup(buildinfourl)
+    soup = BeautifulSoup(buildinfourl, 'html.parser')
     panel_body = soup.find("div",{"class":"panel-body"})
     table_content = panel_body.form.find_all("div",{"class":"form-group"})
     last_div = None
@@ -114,7 +114,7 @@ def getSIT(buildinfourl):
 
 ##get P/N
 def getPN(manifesturl):
-    soup = BeautifulSoup(manifesturl)
+    soup = BeautifulSoup(manifesturl, 'html.parser')
     email_release = soup.find(title="Release Email Draft")
     email_release_p = email_release.find_all("p")
     s=""
@@ -125,14 +125,14 @@ def getPN(manifesturl):
 
 ##get Distributed info
 def getDist(buildmemo):
-    soup = BeautifulSoup(buildmemo)
+    soup = BeautifulSoup(buildmemo, 'html.parser')
     panel_body = soup.find("div",{"class":"panel-body"})
     dist_sec = panel_body.find("div",{"class":"form-group"})
     return dist_sec.p.string
 
 ##get list
 def getList(buildlist):
-    soup = BeautifulSoup(buildlist)
+    soup = BeautifulSoup(buildlist, 'html.parser')
     panel_body = soup.find("div",{"class":"panel-body"})
     table_content = panel_body.find("div",{"class":"table-responsive"})
     item_to_mf = table_content.div.table.tbody.find_all("tr")
@@ -164,7 +164,7 @@ def getList(buildlist):
     d_link1=[]
     for x in range(len(name)):
         if name[x].startswith("44"):
-            if "IFE DB" in nam[x]:
+            if "IFE DB" in name[x]:
                 d_name1.append(name[x][3:])
                 d_link1.append("http://scmdb"+link[x])
                 continue
@@ -273,9 +273,14 @@ def main(buildnumber):
         except Exception:
             pass
     mani_d = []
+    ecsrr_No = []
     for y in d_link:
         tmp_d = urllib2.urlopen(y)
         mani_d.append(getPN(tmp_d))
+        try:
+            ecsrr_No.append(get_database_PN(y))
+        except Exception:
+            pass
     L5.grid_forget()
     master.update()
     
@@ -314,7 +319,7 @@ def main(buildnumber):
         j=0
         for y in d_name:
             email_d = email_d +"<a href="+d_link[j]+">"+y+"</a>"  +", "+ \
-                      "<br>ECSRR: <font color='red'>MISSING ECSRR HERE!!!DO NOT SEND OUT!!!</font><br><br>"+"<br>"
+                      "<br>ECSRR: <font color='red'>MISSING ECSRR HERE!!!DO NOT SEND OUT!!!</font><br><br>"+"<br>"+ecsrr_No[j]
             j=j+1
         email_d = email_d + "ATP number is "+atp+"<br><br><br>"+"Part number information below.<br><br>"
         p=0

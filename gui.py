@@ -274,12 +274,16 @@ def main(buildnumber):
             pass
     mani_d = []
     ecsrr_No = []
+    warning_state = []
     for y in d_link:
         tmp_d = urllib2.urlopen(y)
         mani_d.append(getPN(tmp_d))
         try:
-            ecsrr_No.append(get_database_PN(y))
+            ecsrr_No.append(getDBPN(y))
+            warning_state.append("")
         except Exception:
+            warning_state.append("<font color='red'>MISSING ECSRR HERE!!!DO NOT SEND OUT!!!</font>")
+            ecsrr_No.append("")
             pass
     L5.grid_forget()
     master.update()
@@ -314,12 +318,14 @@ def main(buildnumber):
     email_d = ""
     if d_name:
 ##        print "not d_name"
+        print d_link
+        print ecsrr_No
         email_d = email_d + "Dear SCM,<br><br>Could you please manifest following database(s) for "+\
                   "<a href="+bi+">build "+buildnumber+"</a>"+"<br><br>"
         j=0
         for y in d_name:
-            email_d = email_d +"<a href="+d_link[j]+">"+y+"</a>"  +", "+ \
-                      "<br>ECSRR: <font color='red'>MISSING ECSRR HERE!!!DO NOT SEND OUT!!!</font><br><br>"+"<br>"+ecsrr_No[j]
+            email_d = email_d +"<a href="+d_link[j]+">"+y+"</a>"  +", <br>"+ \
+                      "ECSRR: " + warning_state[j] + ecsrr_No[j]+"<br><br><br>"
             j=j+1
         email_d = email_d + "ATP number is "+atp+"<br><br><br>"+"Part number information below.<br><br>"
         p=0
@@ -401,7 +407,7 @@ def short_key(event):
 
 master = Tk()
 master.title("MyManifest")
-##master.iconbitmap('if__m_2560433.ico')
+master.iconbitmap('if__m_2560433.ico')
 Label(master, text="Build#").grid(row=0)
 
 L1 = Label(master, text="getting build...")

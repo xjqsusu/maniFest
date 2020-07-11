@@ -8,7 +8,7 @@ Usage:
 from setuptools import setup
 
 APP = ['gui.py']
-APP_NAME = "MyManifest_Char"
+APP_NAME = "MyManifest_Delta"
 DATA_FILES = []
 OPTIONS = {
     'argv_emulation': True,

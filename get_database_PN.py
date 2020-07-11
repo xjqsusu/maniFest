@@ -4,15 +4,16 @@ import urllib2
 def getDBPN(manifesturl):
     soup = BeautifulSoup(urllib2.urlopen(manifesturl), 'html.parser')
     profile_name = soup.find(attrs={"for": "scm_release_LRUProfileID"}).parent
-    link = "http://scmdb" + profile_name.next_sibling.find('a').get('href')
+    link = "http://scmdb" + profile_name.next_sibling.next_sibling.find('a').get('href')
 
     soup1 = BeautifulSoup(urllib2.urlopen(link), 'html.parser')
     database_pn = soup1.find(attrs={"id": "uid_div"})
     link1 = "http://scmdb" + database_pn.find('a').get('href')
 
     soup2 = BeautifulSoup(urllib2.urlopen(link1), 'html.parser')
-    databas_ecsrr = soup2.find_all('tbody')[1].find('tr').get('data-srr')
+    databas_ecsrr = soup2.find_all('tbody')[2].find('tr').get('data-srr')
+
     return databas_ecsrr
 
-# link = "http://scmdb/scmrelease/157279"
+# link = "http://scmdb/scmrelease/174923"
 # print getDBPN(link)

@@ -1,5 +1,5 @@
 # manifest tool
-##Version Charlie
+## Version Charlie
 1. Changed code to adapt SCMDB code change.
 
 ## Version beta

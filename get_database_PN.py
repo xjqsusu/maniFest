@@ -4,7 +4,7 @@ import urllib2
 def getDBPN(manifesturl):
     soup = BeautifulSoup(urllib2.urlopen(manifesturl), 'html.parser')
     profile_name = soup.find(attrs={"for": "scm_release_LRUProfileID"}).parent
-    link = "http://scmdb" + profile_name.next_sibling.next_sibling.find('a').get('href')
+    link = "http://scmdb" + profile_name.next_sibling.find('a').get('href')
 
     soup1 = BeautifulSoup(urllib2.urlopen(link), 'html.parser')
     database_pn = soup1.find(attrs={"id": "uid_div"})

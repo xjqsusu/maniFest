@@ -1,4 +1,7 @@
 # manifest tool
+##Version Charlie
+1. Changed code to adapt SCMDB code change.
+
 ## Version beta
 1. Grab the database ECSRR#
 

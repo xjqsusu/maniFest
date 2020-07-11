@@ -8,7 +8,7 @@ Usage:
 from setuptools import setup
 
 APP = ['gui.py']
-APP_NAME = "MyManifest"
+APP_NAME = "MyManifest_Char"
 DATA_FILES = []
 OPTIONS = {
     'argv_emulation': True,
@@ -17,8 +17,8 @@ OPTIONS = {
         'CFBundleName': APP_NAME,
         'CFBundleDisplayName': APP_NAME,
         'CFBundleGetInfoString': "Requesting manifest",
-        'CFBundleVersion': "3.2",
-        'CFBundleShortVersionString': "3.2",
+        'CFBundleVersion': "4",
+        'CFBundleShortVersionString': "4",
         'NSHumanReadableCopyright': "Copyright @ 2019, Jack Xiao, All Rights Reserved"
     }
 }

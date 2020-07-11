@@ -1,11 +1,11 @@
-from Tkinter import *
+from tkinter import *
 from get_database_PN import getDBPN
 import re, traceback
 
 from time import sleep
 
-import tkMessageBox
-import urllib2
+import tkinter.messagebox
+import urllib.request, urllib.error, urllib.parse
 import sys
 import os
 from bs4 import BeautifulSoup
@@ -65,7 +65,7 @@ def wnd_d():
     except:
         f = open("log.txt", "w")
         f.write(traceback.format_exc())
-        print(traceback.format_exc())
+        print((traceback.format_exc()))
 
 def wnd_mani():
     sleep(5)
@@ -82,7 +82,7 @@ def wnd_mani():
     except:
         f = open("log.txt", "w")
         f.write(traceback.format_exc())
-        print(traceback.format_exc())
+        print((traceback.format_exc()))
 
 
 ##get ATP#
@@ -209,15 +209,15 @@ def main(buildnumber):
     
     L1.grid(row=3, column=1)
     master.update()
-    print '\ngetting build '+ buildnumber +'....'
+    print(("\ngetting build "+ buildnumber +"...."))
     
 
 
     
     bi,bl,bs,bm = getURL(buildnumber)
-    buildlist = urllib2.urlopen(bl)##'buildlist.html'
-    buildinfo_s = urllib2.urlopen(bs)
-    buildmemo = urllib2.urlopen(bm)    
+    buildlist = urllib.request.urlopen(bl)##'buildlist.html'
+    buildinfo_s = urllib.request.urlopen(bs)
+    buildmemo = urllib.request.urlopen(bm)    
 
     ##bi,bl,bs = getURL(str(sys.argv[1]))
     ##buildlist = urllib2.urlopen(bl)##'buildlist.html'
@@ -228,7 +228,7 @@ def main(buildnumber):
     master.update()
     result = ""
     if getDist(buildmemo)=='No':
-        result = tkMessageBox.askquestion("Distributed not checked",\
+        result = tkinter.messagebox.askquestion("Distributed not checked",\
                                           "The build has not been distributed, continue manifest?",\
                                           icon='warning')
         if result == 'no':return
@@ -236,7 +236,7 @@ def main(buildnumber):
     L2.grid(row=3, column=1)
     master.update()    
 
-    print 'getting manifest items...'
+    print('getting manifest items...')
     name,link,d_name,d_link,title = getList(buildlist)
     title = title[4:]
     ##open the manifestlink
@@ -249,25 +249,25 @@ def main(buildnumber):
     
     L3.grid(row=3, column=1)
     master.update()  
-    print 'getting ATP#...'
+    print('getting ATP#...')
     atp = getATP(buildinfo_s)
-    buildinfo_s = urllib2.urlopen(bs)
+    buildinfo_s = urllib.request.urlopen(bs)
     L3.grid_forget()
     master.update()
     
     L4.grid(row=3, column=1)
     master.update() 
-    print 'getting SIT#...'
+    print('getting SIT#...')
     sit = getSIT(buildinfo_s)
     L4.grid_forget()
     master.update()
     
     L5.grid(row=3, column=1)
     master.update() 
-    print 'getting PN...'
+    print('getting PN...')
     mani = []
     for x in link:
-        tmp = urllib2.urlopen(x)
+        tmp = urllib.request.urlopen(x)
         try:
             mani.append(getPN(tmp))
         except Exception:
@@ -276,7 +276,7 @@ def main(buildnumber):
     ecsrr_No = []
     warning_state = []
     for y in d_link:
-        tmp_d = urllib2.urlopen(y)
+        tmp_d = urllib.request.urlopen(y)
         mani_d.append(getPN(tmp_d))
         try:
             ecsrr_No.append(getDBPN(y))
@@ -290,7 +290,7 @@ def main(buildnumber):
     
     L6.grid(row=3, column=1)
     master.update() 
-    print 'composing email...'
+    print('composing email...')
     ##compose e-mail
     ##components text composing
 
@@ -318,8 +318,8 @@ def main(buildnumber):
     email_d = ""
     if d_name:
 ##        print "not d_name"
-        print d_link
-        print ecsrr_No
+        print(d_link)
+        print(ecsrr_No)
         email_d = email_d + "Dear SCM,<br><br>Could you please manifest following database(s) for "+\
                   "<a href="+bi+">build "+buildnumber+"</a>"+"<br><br>"
         j=0
@@ -399,7 +399,7 @@ def main_gui():
         L4.grid_forget()
         L5.grid_forget()
         L6.grid_forget()
-        tkMessageBox.showinfo("Error", str(e))
+        tkinter.messagebox.showinfo("Error", str(e))
         master.update()
 def short_key(event):
     main_gui()

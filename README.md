@@ -1,4 +1,7 @@
 # manifest tool
+## Version Delta
+1. Switched from python2 to python3
+
 ## Version Charlie
 1. Changed code to adapt SCMDB code change.
 

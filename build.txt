@@ -1,1 +1,1 @@
-pyinstaller.exe --onefile --windowed --icon=app.ico app.py
+pyinstaller.exe --onefile --windowed --icon=if__m_2560433.ico MyManifest.py

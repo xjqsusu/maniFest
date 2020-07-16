@@ -3,7 +3,7 @@ from get_database_PN import getDBPN
 import re, traceback
 
 from time import sleep
-
+from nameInOS import get_display_name 
 import tkinter.messagebox
 import urllib.request, urllib.error, urllib.parse
 import sys
@@ -14,7 +14,8 @@ if 'Win' in platform.system():
 ##    import win32com.client
     from win32com.client import Dispatch, constants
     import win32gui, win32con, win32com.client
-    import getpass
+
+
 
 ##set window focus
 class cWindow:
@@ -427,7 +428,7 @@ def main(buildnumber, GCS_enable):
             newMail.Subject = "IFE s/w MANIFEST REQUEST for "+title
             # newMail.Body = "I AM\nTHE BODY MESSAGE!"
 
-            newMail.HTMLBody = email_html + getpass.getuser()
+            newMail.HTMLBody = email_html + get_display_name()
             newMail.To = "socal.scm.ManifestRequest@panasonic.aero"
             newMail.display()
             wnd_mani()
@@ -440,7 +441,7 @@ def main(buildnumber, GCS_enable):
             newMail = obj.CreateItem(olMailItem)
             newMail.Subject = "DATABASE MANIFEST REQUEST for "+title
 
-            newMail.HTMLBody = email_d + getpass.getuser()
+            newMail.HTMLBody = email_d + get_display_name()
             newMail.To = "socal.scm.ManifestRequest@panasonic.aero"
             ##attachment1 = r"C:\Temp\example.pdf"
             ##newMail.Attachments.Add(Source=attachment1)
@@ -453,7 +454,7 @@ def main(buildnumber, GCS_enable):
             newMail = obj.CreateItem(olMailItem)
             newMail.Subject = "GCS s/w MANIFEST REQUEST for "+title
 
-            newMail.HTMLBody = email_gcs + getpass.getuser()
+            newMail.HTMLBody = email_gcs + get_display_name()
             newMail.To = "socal.scm.ManifestRequest@panasonic.aero"
             ##attachment1 = r"C:\Temp\example.pdf"
             ##newMail.Attachments.Add(Source=attachment1)

@@ -1,6 +1,7 @@
 # manifest tool
 ## Version Delta
 1. Switched from python2 to python3
+2. Auto attached the latest rack snapshot
 
 ## Version Charlie
 1. Changed code to adapt SCMDB code change.

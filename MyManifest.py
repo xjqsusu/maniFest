@@ -1,9 +1,11 @@
 from tkinter import *
 from get_database_PN import getDBPN
+from get_ATP import getATP
+from get_SNAP import getSNAP
 import re, traceback
 
 from time import sleep
-from nameInOS import get_display_name 
+from nameInOS import get_display_name
 import tkinter.messagebox
 import urllib.request, urllib.error, urllib.parse
 import sys
@@ -87,19 +89,7 @@ def wnd_mani():
         print((traceback.format_exc()))
 
 
-##get ATP#
-def getATP(buildinfourl):
-    soup = BeautifulSoup(buildinfourl, 'html.parser')
-    # panel_body = soup.find("div",{"class":"panel-body"})
-    # table_content = panel_body.form.find_all("div",{"class":"form-group"})
-    # last_div = None
-    # for last_div in table_content:pass
-    # return last_div.div.table.tr.next_sibling.next_sibling.find("td",{"class":"atp-title"}).get("data-atp")
-    try:
-        s = soup.find("td",{"class":"atp-title"}).get("data-atp")
-    except Exception:
-        s = "Unknown"
-    return s
+
 
 ##get SIT#
 def getSIT(buildinfourl):
@@ -134,7 +124,7 @@ def getSIT(buildinfourl):
 
 ##get ETE build#
 def getETE(buildinfourl):
-    soup = BeautifulSoup(buildinfourl, 'html.parser')
+    soup = BeautifulSoup(urllib.request.urlopen(buildinfourl), 'html.parser')
     s=""
     try:
         for string in soup.find("label",{"for":"ete_build"}).next_sibling.next_sibling.p.stripped_strings:
@@ -157,14 +147,14 @@ def getPN(manifesturl):
 
 ##get Distributed info
 def getDist(buildmemo):
-    soup = BeautifulSoup(buildmemo, 'html.parser')
+    soup = BeautifulSoup(urllib.request.urlopen(buildmemo), 'html.parser')
     panel_body = soup.find("div",{"class":"panel-body"})
     dist_sec = panel_body.find("div",{"class":"form-group"})
     return dist_sec.p.string
 
 ##get list
 def getList(buildlist, GCS_enable):
-    soup = BeautifulSoup(buildlist, 'html.parser')
+    soup = BeautifulSoup(urllib.request.urlopen(buildlist), 'html.parser')
     panel_body = soup.find("div",{"class":"panel-body"})
     table_content = panel_body.find("div",{"class":"table-responsive"})
     item_to_mf = table_content.div.table.tbody.find_all("tr")
@@ -257,10 +247,8 @@ def main(buildnumber, GCS_enable):
 
 
     
-    bi,bl,bs,bm = getURL(buildnumber)
-    buildlist = urllib.request.urlopen(bl)##'buildlist.html'
-    buildinfo_s = urllib.request.urlopen(bs)
-    buildmemo = urllib.request.urlopen(bm)    
+    bi,buildlist,buildinfo_s,buildmemo = getURL(buildnumber)
+       
 
     ##bi,bl,bs = getURL(str(sys.argv[1]))
     ##buildlist = urllib2.urlopen(bl)##'buildlist.html'
@@ -294,7 +282,6 @@ def main(buildnumber, GCS_enable):
     master.update()  
     print('getting ATP#...')
     atp = getATP(buildinfo_s)
-    buildinfo_s = urllib.request.urlopen(bs)
     L3.grid_forget()
     master.update()
     
@@ -302,7 +289,6 @@ def main(buildnumber, GCS_enable):
     master.update() 
     print('getting SIT#...')
     sit = getSIT(buildinfo_s)
-    buildinfo_s = urllib.request.urlopen(bs)
     ete = getETE(buildinfo_s)
     L4.grid_forget()
     master.update()
@@ -348,7 +334,16 @@ def main(buildnumber, GCS_enable):
     ##compose e-mail
     ##components text composing
 
-    print(sit)
+    # print(sit)
+
+    try:
+        [label_snap, link_snap, date] = getSNAP(atp)
+        tkinter.messagebox.showinfo("Latest snapshot found", "Snapshot <" + label_snap + "> dated "+ date +" found")
+    except Exception:
+        label_snap = "<font color='red'>MISSING RACK SCAN HERE!!!DO NOT SEND OUT!!!</font>"
+        link_snap = ""
+        date = ""
+
 
     email_html = ""
     if name:
@@ -361,7 +356,7 @@ def main(buildnumber, GCS_enable):
             i=i+1
         email_html = email_html + "<br><br>ATP number is "+atp+"<br>"+\
                      "SIT number is "+sit+"<br />"+\
-                     "The rack scan is <font color='red'>MISSING RACK SCAN HERE!!!DO NOT SEND OUT!!!</font>"+"<br><br><br>"
+                     "The rack scan is " + "<a href="+link_snap+">"+label_snap+"</a>" +"<br><br><br>"
         email_html = email_html + "Below is part number information.<br><br>"
         i=0
         for y in mani:
@@ -374,8 +369,8 @@ def main(buildnumber, GCS_enable):
     email_d = ""
     if d_name:
 ##        print "not d_name"
-        print(d_link)
-        print(ecsrr_No)
+        # print(d_link)
+        # print(ecsrr_No)
         email_d = email_d + "Hello SCM,<br><br>Could you please manifest following database(s) for "+\
                   "<a href="+bi+">build "+buildnumber+"</a>"+"<br><br>"
         j=0

@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['MyManifest.py'],
-             pathex=['E:\\Project\\maniFest'],
+             pathex=['e:\\Project\\maniFest'],
              binaries=[],
              datas=[],
              hiddenimports=[],

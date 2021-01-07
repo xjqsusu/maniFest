@@ -93,7 +93,7 @@ def wnd_mani():
 
 ##get SIT#
 def getSIT(buildinfourl):
-    soup = BeautifulSoup(buildinfourl, 'html.parser')
+    soup = BeautifulSoup(urllib.request.urlopen(buildinfourl), 'html.parser')
 #     panel_body = soup.find("div",{"class":"panel-body"})
 #     table_content = panel_body.form.find_all("div",{"class":"form-group"})
 #     last_div = None
@@ -473,7 +473,8 @@ def main_gui():
 
         master.update_idletasks()
         
-        main(e1.get(), var1.get())
+##        main(e1.get(), var1.get())
+        main(e1.get(), 0)
 ##        L1.destroy()
     except Exception as e:
         
@@ -514,9 +515,9 @@ e1.grid(row=0, column=1)
 b2 = Button(master, fg='black', text='Go', command=main_gui)
 b2.grid(row=4, column=0, sticky=W, pady=4)
 
-var1 = IntVar()
-c1 = Checkbutton(master, text='include GCS s/w', variable=var1, onvalue=1, offvalue=0)
-c1.grid(row=3, column=1, sticky=W)
+##var1 = IntVar()
+##c1 = Checkbutton(master, text='include GCS s/w', variable=var1, onvalue=1, offvalue=0)
+##c1.grid(row=3, column=1, sticky=W)
 
 master.bind('<Return>',short_key)
 

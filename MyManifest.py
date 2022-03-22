@@ -465,8 +465,8 @@ def main(buildnumber, GCS_enable):
         #     os.system(cmd1)
         title_sw = "IFE s/w MANIFEST REQUEST for "+title
         title_d = "DATABASE MANIFEST REQUEST for "+title
-        email_html = email_html + get_display_name()
-        email_d = email_d + get_display_name()
+        # email_html = email_html + get_display_name()
+        # email_d = email_d + get_display_name()
         outlook = app('Microsoft Outlook')
         msg = outlook.make(
             new=k.outgoing_message,

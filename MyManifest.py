@@ -493,7 +493,7 @@ def short_key(event):
 
 master = Tk()
 master.title("MyManifest")
-master.iconbitmap('iconfinder__m_2560433.icns'ß)
+master.iconbitmap('iconfinder__m_2560433.icns')
 Label(master, text="Build#").grid(row=0)
 
 L1 = Label(master, text="getting build...")

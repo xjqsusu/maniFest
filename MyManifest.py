@@ -16,7 +16,7 @@ if 'Win' in platform.system():
 ##    import win32com.client
     from win32com.client import Dispatch, constants
     import win32gui, win32con, win32com.client
-
+from appscript import app, k
 
 
 ##set window focus
@@ -457,12 +457,44 @@ def main(buildnumber, GCS_enable):
             wnd_d()
         
     else:
-        if email_html:
-            cmd = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"MANIFEST REQUEST for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title.encode('utf-8'),email_html.encode('utf-8'))
-            os.system(cmd)
-        if email_d:
-            cmd1 = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"DATABASE MANIFEST REQUEST for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title.encode('utf-8'),email_d.encode('utf-8'))
-            os.system(cmd1)
+        # if email_html:
+        #     cmd = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"MANIFEST REQUEST for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_html)
+        #     os.system(cmd)
+        # if email_d:
+        #     cmd1 = """osascript -e 'tell application "Microsoft Outlook"' -e 'set newMessage to make new outgoing message with properties {subject:"DATABASE MANIFEST REQUEST for %s", content:"%s"}' -e 'make new recipient at newMessage with properties {email address:{address:"socal.scm.ManifestRequest@panasonic.aero"}}' -e 'open newMessage' -e 'end tell'""" %(title,email_d)
+        #     os.system(cmd1)
+        title_sw = "IFE s/w MANIFEST REQUEST for "+title
+        title_d = "DATABASE MANIFEST REQUEST for "+title
+        email_html = email_html + get_display_name()
+        email_d = email_d + get_display_name()
+        outlook = app('Microsoft Outlook')
+        msg = outlook.make(
+            new=k.outgoing_message,
+            with_properties={
+                k.subject: title_sw,
+                k.plain_text_content: email_html})
+        msg.make(
+            new=k.recipient,
+            with_properties={
+                k.email_address: {
+                    k.address: 'socal.scm.ManifestRequest@panasonic.aero'}})
+        msg.open()
+        msg.activate()
+        outlook = app('Microsoft Outlook')
+        msg = outlook.make(
+            new=k.outgoing_message,
+            with_properties={
+                k.subject: title_d,
+                k.plain_text_content: email_d})
+        msg.make(
+            new=k.recipient,
+            with_properties={
+                k.email_address: {
+                    k.address: 'socal.scm.ManifestRequest@panasonic.aero'}})
+        msg.open()
+        msg.activate()
+
+
     L6.grid_forget()
     master.update()
 def main_gui():
